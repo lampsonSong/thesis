@@ -23,7 +23,7 @@
 	As a summation, the previous de-identification methods are all trade-offs between privacy protection and data utility preservation. When processed by the previous introduced methods, the original face image information would be damaged to protect identity but also erase some data utility such as expressions, gender. In another word, the previous introduced methods protect identity privacy information by destorying all the original image information, which definitely destory the data utility simultaneously. 
 
 \section{K-anonymity based methods}
-	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Not only in face images, the k-anonymity model is designed for various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. 
+	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Originally not specifically designed for face images, the k-anonymity model is applied in various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. 
 		\begin{table}[!htb]
 		\centering
 			\begin{tabular}{|c|c|c|c|c|}
@@ -53,19 +53,17 @@
 				White & 1967 & m & 0213* & chest pain \\
 				\hline
 			\end{tabular}
-			\caption{A K-anonymity example in text information ~\cite{Sweeney02}, $k = 2$ } 
+			\caption{A K-anonymity example in text information, $k = 2$ ~\cite{Sweeney02}} 
 		\end{table}	
 
-	\par
-	K-same-Pixel
+		The number k from above example is 2 which means the possibility ratio of re-identify any individual from the database is less than $\frac{1}{2}$ judging from \{Race, Birth, Gender, ZIP\}. In another word, at least 2 same tuples in \{Race, Birth, Gender, ZIP, Problem\} would appear in this database. If this is the version of released database, it is possible to get statistic information from this but impossible to match each tuple with specific citizens. Therefore, it is claimed this could keep a ballance from privacy protection and data utility preservation.  
+	
+	\subsection{\emph{k-Same-Pixel()} and \emph{k-Same-Eigen()}}
 
-	\par
-	K-same-Eign
+	E. Newton firstly applied the K-anonymity method to privacy protectin by de-identifying face images in 2005 ~\cite{Newton05}. 
+	Images provided by k-Same- Eigen() have a blurred effect compared to those from k-Same-Pixel() because the projected images used in k-Same-Eigen() retain only the most important characteristics. Less important components have been removed.
+	\subsection{\emph{k-Same-Model()}}
 
-	\par
-	K-same-Model
-
-	\par
-	K-same-Select
+	\subsection{\emph{k-Same-Select()}}
 	
 	General solutions model face shape and appearance separately. 
