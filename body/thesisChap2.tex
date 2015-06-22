@@ -23,7 +23,38 @@
 	As a summation, the previous de-identification methods are all trade-offs between privacy protection and data utility preservation. When processed by the previous introduced methods, the original face image information would be damaged to protect identity but also erase some data utility such as expressions, gender. In another word, the previous introduced methods protect identity privacy information by destorying all the original image information, which definitely destory the data utility simultaneously. 
 
 \section{K-anonymity based methods}
-	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. 
+	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Not only in face images, the k-anonymity model is designed for various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. 
+		\begin{table}[!htb]
+		\centering
+			\begin{tabular}{|c|c|c|c|c|}
+				\hline
+				\textbf{Race} & \textbf{Birth} & \textbf{Gender} & \textbf{ZIP} & \textbf{Problem} \\
+				\hline
+				Black & 1965 & m & 0214* & short breath \\
+				\hline
+				Black & 1965 & m & 0214* & chest pain \\
+				\hline
+				Black & 1965 & f & 0213* & hypertension \\
+				\hline
+				Black & 1965 & f & 0213* & hypertension \\
+				\hline
+				Black & 1964 & f & 0213* & obesity \\
+				\hline
+				Black & 1964 & f & 0213* & chest pain \\
+				\hline
+				White & 1964 & m & 0213* & chest pain \\
+				\hline
+				White & 1964 & m & 0213* & obesity \\
+				\hline
+				White & 1964 & m & 0213* & short breath \\
+				\hline
+				White & 1967 & m & 0213* & chest pain \\
+				\hline
+				White & 1967 & m & 0213* & chest pain \\
+				\hline
+			\end{tabular}
+			\caption{A K-anonymity example in text information ~\cite{Sweeney02}, $k = 2$ } 
+		\end{table}	
 
 	\par
 	K-same-Pixel
