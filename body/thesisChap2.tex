@@ -12,7 +12,7 @@
 	\begin{figure}[!htb]
 		  \centering
 		  \includegraphics[width=0.9\textwidth]{figure/adhoc.png} 
-		  \caption{(a) the origianl image; (b) Pixelation; (c) blurring; (d) scrambling; (e) blanking; (f) encryption}
+		  \caption{(a) the origianl image; (b) pixelation; (c) blurring; (d) scrambling; (e) blanking; (f) encryption}
 		  \label{adhoc_example}
 	\end{figure}
 
@@ -23,7 +23,7 @@
 	As a summation, the previous de-identification methods are all trade-offs between privacy protection and data utility preservation. When processed by the previous introduced methods, the original face image information would be damaged to protect identity but also erase some data utility such as expressions, gender. In another word, the previous introduced methods protect identity privacy information by destorying all the original image information, which definitely destory the data utility simultaneously. 
 
 \section{K-anonymity based methods}
-	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Originally not specifically designed for face images, the k-anonymity model is applied in various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. 
+	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Originally not specifically designed for face images, the k-anonymity model is applied in various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. \newline
 		\begin{table}[!htb]
 		\centering
 			\begin{tabular}{|c|c|c|c|c|}
@@ -60,9 +60,21 @@
 	
 	\subsection{\emph{k-Same-Pixel()} and \emph{k-Same-Eigen()}}
 
-	E. Newton firstly applied the K-anonymity method to privacy protectin by de-identifying face images in 2005 ~\cite{Newton05}. 
-	Images provided by k-Same- Eigen() have a blurred effect compared to those from k-Same-Pixel() because the projected images used in k-Same-Eigen() retain only the most important characteristics. Less important components have been removed.
-	\subsection{\emph{k-Same-Model()}}
+	E. Newton firstly applied the K-anonymity method to privacy protectin by de-identifying face images in 2005 ~\cite{Newton05}. The experiment was set in a person specific face image database, which means only one face image for each individual is included. Claiming that ad-hoc methods, like pixelation, blurring, are not able to protect privacy, E. Newton introduced two new approaches based on K-anonymity model: \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()}. 
+
+	For any one face image from $A$ the person specific database, the process of \emph{k-Same-Pixel()} is:
+	\begin{itemize}
+		\item Select $k$ face images that are closest to $A$ including A itself
+		\item Take the average of these $k$ images $A_{new}$ by averaging the sum of pixels
+		\item Replace the original image $A$ with $A_{new}$
+		\item Repeat the first step if the recognition ratio of A is higher than $\frac{1}{k}$
+	\end{itemize}
+	The only difference between \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()} is the latter one would take an average image from eigen faces. In mathematics, the eigen face images, composed of eigen values and eigen vectors of original images, are also called projected images, which are computed by PCA (Principle Component Analysis). 
+
+	Images provided by \emph{k-Same-Eigen()} have a blurred effect compared to those from \emph{k-Same-Pixel()} because the projected images used in \emph{k-Same-Eigen()} retain only the most important characteristics. Less important components have been removed during the computation of eigen values and eigen vectors.
+
+	Compared to ad-hoc methods, \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()} are able to avoid the parrot attack. It is an improvement in the privacy protection. However, as illustrated before, the key point in face de-identificaiton is to keep the ballance between privacy protection and data utility preservation. The data utility of face images from \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()} would be discussed. 
+ 	\subsection{\emph{k-Same-Model()}}
 
 	\subsection{\emph{k-Same-Select()}}
 	
