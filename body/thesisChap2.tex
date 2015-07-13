@@ -58,24 +58,37 @@
 
 		The number k from above example is 2 which means the possibility ratio of re-identify any individual from the database is less than $\frac{1}{2}$ judging from \{Race, Birth, Gender, ZIP\}. In another word, at least 2 same tuples in \{Race, Birth, Gender, ZIP, Problem\} would appear in this database. If this is the version of released database, it is possible to get statistic information from this but impossible to match each tuple with specific citizens. Therefore, it is claimed this could keep a ballance from privacy protection and data utility preservation.  
 	
-	\subsection{\emph{k-Same-Pixel()} and \emph{k-Same-Eigen()}}
+	\subsection{\emph{k-Same} algorithm}
 
-	E. Newton firstly applied the K-anonymity method to privacy protectin by de-identifying face images in 2005 ~\cite{Newton05}. The experiment was set in a person specific face image database, which means only one face image for each individual is included. Claiming that ad-hoc methods, like pixelation, blurring, are not able to protect privacy, E. Newton introduced two new approaches based on K-anonymity model: \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()}. 
+	E. Newton firstly applied the K-anonymity method to privacy protectin by de-identifying face images in 2005 ~\cite{Newton05}. The experiment was set in a person specific face image database, which means only one face image for each individual is included. Claiming that ad-hoc methods, like pixelation, blurring, are not able to protect privacy, E. Newton introduced two new approaches based on K-anonymity model: \emph{k-Same-Pixel} and \emph{k-Same-Eigen}. These two algorithms are tested in the person specific database that contains only one image for each person. 
 
-	For any one face image from $A$ the person specific database, the process of \emph{k-Same-Pixel()} is:
+	For any one face image from $A$ the person specific database, the process of \emph{k-Same-Pixel} is:
 	\begin{itemize}
 		\item Select $k$ face images that are closest to $A$ including A itself
 		\item Take the average of these $k$ images $A_{new}$ by averaging the sum of pixels
 		\item Replace the original image $A$ with $A_{new}$
 		\item Repeat the first step if the recognition ratio of A is higher than $\frac{1}{k}$
 	\end{itemize}
-	The only difference between \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()} is the latter one would take an average image from eigen faces. In mathematics, the eigen face images, composed of eigen values and eigen vectors of original images, are also called projected images, which are computed by PCA (Principle Component Analysis). 
+	The only difference between \emph{k-Same-Pixel} and \emph{k-Same-Eigen} is the later one would take an average image from eigen faces. In mathematics, the eigen face images, composed of eigen values and eigen vectors of original images, are also called projected images, which are computed by PCA (Principle Component Analysis). 
 
-	Images provided by \emph{k-Same-Eigen()} have a blurred effect compared to those from \emph{k-Same-Pixel()} because the projected images used in \emph{k-Same-Eigen()} retain only the most important characteristics. Less important components have been removed during the computation of eigen values and eigen vectors.
+	Images provided by \emph{k-Same-Eigen} have a blurred effect compared to those from \emph{k-Same-Pixel} because the projected images used in \emph{k-Same-Eigen} retain only the most important characteristics. Less important components have been removed during the computation of eigen values and eigen vectors.
 
-	Compared to ad-hoc methods, \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()} are able to avoid the parrot attack. It is an improvement in the privacy protection. However, as illustrated before, the key point in face de-identificaiton is to keep the ballance between privacy protection and data utility preservation. The data utility of face images from \emph{k-Same-Pixel()} and \emph{k-Same-Eigen()} would be discussed. 
- 	\subsection{\emph{k-Same-Model()}}
+	Compared to ad-hoc methods, \emph{k-Same-Pixel} and \emph{k-Same-Eigen} are able to combat the parrot attack. It is an improvement in the privacy protection. However, as illustrated before, the key point in face de-identificaiton is to keep the ballance between privacy protection and data utility preservation. The data utility of face images from \emph{k-Same-Pixel} and \emph{k-Same-Eigen} would be discussed. 
+ 	
+ 	\subsection{\emph{k-Same-M}}
+ 	This \emph{k-Same-M} algorithm is designed to overcome an obvious shortcoming of \emph{k-Same-Pixel} and \emph{k-Same-Eigen}. Since the previous introduced k-Same algorithms average the de-identified images based on pixels directly and different faces are with various sizes, the alignment between faces are not always perfect correct. Therefore, the de-identified face image may contain ghost artifacts. As shown in Fig.~\ref{ghostFace} ~\cite{Gross08}, the appearance of de-identified face images are deeply fuzzy. Although the de-identified images are able to combat automatic face recognition algorithms, the results also lose many other informations like expressions. Even a normal human could not figure out the expressions in the results. Hence, we claim that the k-Same algorithm fail to keep the balance between data privacy and data utility. 
+	 	\begin{figure}[!htb]
+			  \centering
+			  \includegraphics[width=0.8\textwidth]{figure/ghost.png} 
+			  \caption{Ghost face images produced by k-Same algorithm}
+			  \label{ghostFace}
+		\end{figure}
+ 	The M in \emph{k-Same-M} represents Model. 
 
-	\subsection{\emph{k-Same-Select()}}
+	\subsection{\emph{k-Same-Select}}
 	
 	General solutions model face shape and appearance separately. 
+
+	\subsection{Shortcomings of k-Same framework}
+
+	\section{Multi-factor Model}
