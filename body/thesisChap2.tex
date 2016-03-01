@@ -1,3 +1,8 @@
+\iffalse
+\bibliography{reference/refs}
+\fi
+
+
 \chapter{Related Work}
 
 \section{Ad-hoc methods}
@@ -23,7 +28,7 @@
 	As a summation, the previous de-identification methods are all trade-offs between privacy protection and data utility preservation. When processed by the previous introduced methods, the original face image information would be damaged to protect identity but also erase some data utility such as expressions, gender. In another word, the previous introduced methods protect identity privacy information by destorying all the original image information, which definitely destory the data utility simultaneously. 
 
 \section{K-anonymity based methods}
-	K-anonymity is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Originally not specifically designed for face images, the k-anonymity model is applied in various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. \newline
+	K-anonymity concept is a model proposed by ~\cite{Sweeney02} to solve the problem that a data holder releases a version of private data with scientific guarantees that the individuals involved can not be re-identified while the data remain pratically useful. Suppose one indivual's data is a tuple, this method requires that the released data contain at least k same tuples so that the re-identification ratio for each individual is lower than $\frac{1}{k}$. Originally not specifically designed for face images, the k-anonymity model is applied in various kinds of data. The following table shows the k-anonymity model used in an example of citizen's information from United States. \newline
 		\begin{table}[!htb]
 		\centering
 			\begin{tabular}{|c|c|c|c|c|}
@@ -76,13 +81,13 @@
 	Compared to ad-hoc methods, \emph{k-Same-Pixel} and \emph{k-Same-Eigen} are able to combat the parrot attack. It is an improvement in the privacy protection. However, as illustrated before, the key point in face de-identificaiton is to keep the ballance between privacy protection and data utility preservation. The data utility of face images from \emph{k-Same-Pixel} and \emph{k-Same-Eigen} would be discussed. 
  	
  	\subsection{\emph{k-Same-M}}
- 	This \emph{k-Same-M} algorithm is designed to overcome an obvious shortcoming of \emph{k-Same-Pixel} and \emph{k-Same-Eigen}. Since the previous introduced k-Same algorithms average the de-identified images based on pixels directly and different faces are with various sizes, the alignment between faces are not always perfect correct. Therefore, the de-identified face image may contain ghost artifacts. As shown in Fig.~\ref{ghostFace} ~\cite{Gross08}, the appearance of de-identified face images are deeply fuzzy. Although the de-identified images are able to combat automatic face recognition algorithms, the results also lose many other informations like expressions. Even a normal human could not figure out the expressions in the results. Hence, we claim that the k-Same algorithm fail to keep the balance between data privacy and data utility. 
-	 	\begin{figure}[!htb]
-			  \centering
-			  \includegraphics[width=0.8\textwidth]{figure/ghost.png} 
-			  \caption{Ghost face images produced by k-Same algorithm}
-			  \label{ghostFace}
-		\end{figure}
+ 	This \emph{k-Same-M} algorithm is designed to overcome an obvious shortcoming of \emph{k-Same-Pixel} and \emph{k-Same-Eigen}. Since the previous introduced k-Same algorithms average the de-identified images based on pixels directly and different faces are with various sizes, the alignment between faces are not always perfect correct. Therefore, the de-identified face image may contain ghost artifacts. As shown in Fig. ~\cite{Gross08}, the appearance of de-identified face images are deeply fuzzy. Although the de-identified images are able to combat automatic face recognition algorithms, the results also lose many other informations like expressions. Even a normal human could not figure out the expressions in the results. Hence, we claim that the k-Same algorithm fail to keep the balance between data privacy and data utility. 
+	 % 	\begin{figure}[!htb]
+		% 	  \centering
+		% 	  \includegraphics[width=0.8\textwidth]{figure/ghost.png} 
+		% 	  \caption{Ghost face images produced by k-Same algorithm}
+		% 	  \label{ghostFace}
+		% \end{figure}
  	The M in \emph{k-Same-M} represents Model. 
 
 	\subsection{\emph{k-Same-Select}}
