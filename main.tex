@@ -1,8 +1,8 @@
 \documentclass[a4paper,dvips,12pt,oneside,onecolumn,final,openright]{book}
 
-\title{\textbf{Face De-identification Based on Tensor Decomposition}}
+\title{\textbf{Face De-identification}}
 \author{\textbf{Song Yuhao}}
-\date{March 2016}
+\date{September 2016}
 
 
 %%----------------------------------------------------------------------------%%
@@ -40,6 +40,7 @@
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.eps,.pdf,.jpg,.png}
 \DeclareGraphicsRule{.png}{eps}{.bb}{}
+\DeclareGraphicsRule{.jpg}{eps}{.bb}{}
 %\usepackage[tight,FIGBOTCAP,TABBOTCAP,hang]{subfigure}
 \usepackage[footnotesize]{subfigure}
 \usepackage{rotating}
@@ -48,10 +49,11 @@
 
 % for algorithms
 %\usepackage[plain,section]{algorithm}
-\usepackage{algorithm}
-\usepackage{algorithmic}
-\usepackage{ifthen}
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+% \usepackage{ifthen}
 
+\usepackage[ruled]{algorithm2e}
 
 %%----------------------------------------------------------------------------%%
 %%    Page layout                                                             %%
@@ -134,189 +136,167 @@
 %%    Environment for Title Page                                              %%
 %%----------------------------------------------------------------------------%%
 
-\makeatletter
-\renewcommand{\maketitle}
-{%
-  \begin{titlepage}
-    %\renewcommand{\baselinestretch}{1}%
-    \begin{center}
-      {\LARGE\@title\par}
-      \vspace*{\stretch{5}}
-      {\Large\@author\par}
-      \vspace*{\stretch{5}}
-      \textbf{
-        A thesis submitted in partial fulfilment of the requirements\\
-        for the degree of\\
-        Master of Philosophy\\}
-      \vspace*{\stretch{5}}
-      \begin{table}[!h]
-      \centering
-      \begin{tabular}{r@{\textbf{: }}l}
-        \textbf{Principal Supervisor}& \textbf{Prof. YUEN Pong Chi}\\
-        \textbf{Co-Supervisor}& \textbf{Dr. ZHANG Hui}\\
-      \end{tabular}
-      \end{table}
-      \textbf{Hong Kong Baptist University\\}
-      {\large\textbf{\@date}\par}
-    \end{center}
-  \end{titlepage}
-} \makeatother
+                                                        \makeatletter
+                                                        \renewcommand{\maketitle}
+                                                        {%
+                                                          \begin{titlepage}
+                                                            %\renewcommand{\baselinestretch}{1}%
+                                                            \begin{center}
+                                                              {\LARGE\@title\par}
+                                                              \vspace*{\stretch{5}}
+                                                              {\Large\@author\par}
+                                                              \vspace*{\stretch{5}}
+                                                              \textbf{
+                                                                A thesis submitted in partial fulfilment of the requirements\\
+                                                                for the degree of\\
+                                                                Master of Philosophy\\}
+                                                              \vspace*{\stretch{5}}
+                                                              \begin{table}[!h]
+                                                              \centering
+                                                              \begin{tabular}{r@{\textbf{: }}l}
+                                                                \textbf{Principal Supervisor}& \textbf{Prof. YUEN Pong Chi}\\
+                                                                \textbf{Co-Supervisor}& \textbf{Dr. ZHANG Hui}\\
+                                                              \end{tabular}
+                                                              \end{table}
+                                                              \textbf{Hong Kong Baptist University\\}
+                                                              {\large\textbf{\@date}\par}
+                                                            \end{center}
+                                                          \end{titlepage}
+                                                        } \makeatother
 
 %%----------------------------------------------------------------------------%%
 %%    Environment for Declaration                                             %%
 %%----------------------------------------------------------------------------%%
 
-\makeatletter
-\newcommand{\makedeclaration}
-{
-\begin{center}\textbf{DECLARATION}\end{center}
-\addcontentsline{toc}{chapter}{Declaration}
+                                                        \makeatletter
+                                                        \newcommand{\makedeclaration}
+                                                        {
+                                                        \begin{center}\textbf{DECLARATION}\end{center}
+                                                        \addcontentsline{toc}{chapter}{Declaration}
 
-I hereby declare that this thesis represents my own work which has
-been done after registration for the degree of MPhil at Hong Kong
-Baptist University, and has not been previously included in a thesis
-or dissertation submitted to this or any other institution for a degree,
-diploma or other qualifications.
-\vspace*{2.5cm}
-\begin{flushright}
-\begin{tabular}{r@{: }l@{}}
-Signature& \underline{\hbox to 30mm{}} \\
-Date&\@date\\
-\end{tabular}
-\end{flushright}
-%\pagestyle{plain}%
-} \makeatother
+                                                        I hereby declare that this thesis represents my own work which has
+                                                        been done after registration for the degree of MPhil at Hong Kong
+                                                        Baptist University, and has not been previously included in a thesis
+                                                        or dissertation submitted to this or any other institution for a degree,
+                                                        diploma or other qualifications.
+                                                        \vspace*{2.5cm}
+                                                        \begin{flushright}
+                                                        \begin{tabular}{r@{: }l@{}}
+                                                        Signature& \underline{\hbox to 30mm{}} \\
+                                                        Date&\@date\\
+                                                        \end{tabular}
+                                                        \end{flushright}
+                                                        %\pagestyle{plain}%
+                                                        } \makeatother
 
 %%----------------------------------------------------------------------------%%
 %%    Environment for Abstract                                                %%
 %%----------------------------------------------------------------------------%%
 
-\makeatletter
-\newenvironment{abstract}%
-{
-\if@twocolumn
-    \@restonecoltrue\onecolumn
-  \else
-    \@restonecolfalse\newpage
-  \fi
-  \begin{table}
-  \begin{center}
-  \begin{tabular*}{1\textwidth}{ @{\extracolsep{\fill}} lr }
-  SONG Yuhao& Master of Philosophy\\
-  Hong Kong Baptist University&\@date\\
-  \end{tabular*}
-  \end{center}
-  \end{table}
-  \begin{center}
-  \large
-  \@title\\
-  \vspace*{1.5cm}
-  \textbf{Abstract}
-  \vspace*{2.5cm}
-  \end{center}
-%Start Abstract
-\addcontentsline{toc}{chapter}{Abstract}
-\input{preface/thesisAbs}
-}%
-\makeatother
+                                                        \makeatletter
+                                                        \newenvironment{abstract}%
+                                                        {
+                                                        \if@twocolumn
+                                                            \@restonecoltrue\onecolumn
+                                                          \else
+                                                            \@restonecolfalse\newpage
+                                                          \fi
+                                                          \begin{table}
+                                                          \begin{center}
+                                                          \begin{tabular*}{1\textwidth}{ @{\extracolsep{\fill}} lr }
+                                                          SONG Yuhao& Master of Philosophy\\
+                                                          Hong Kong Baptist University&\@date\\
+                                                          \end{tabular*}
+                                                          \end{center}
+                                                          \end{table}
+                                                          \begin{center}
+                                                          \large
+                                                          \@title\\
+                                                          \vspace*{1.5cm}
+                                                          \textbf{Abstract}
+                                                          \vspace*{2.5cm}
+                                                          \end{center}
+                                                        %Start Abstract
+                                                        \addcontentsline{toc}{chapter}{Abstract}
+                                                        \input{preface/thesisAbs}
+                                                        }%
+                                                        \makeatother
 
 %%----------------------------------------------------------------------------%%
 %%    Environment for Acknowledgements                                             %%
 %%----------------------------------------------------------------------------%%
 
-\makeatletter
-\newcommand{\makeAck}
-{
-\chapter*{Acknowledgements}
-\addcontentsline{toc}{chapter}{Acknowledgements}
-\input{preface/thesisAck}
+                                                        \makeatletter
+                                                        \newcommand{\makeAck}
+                                                        {
+                                                        \chapter*{Acknowledgements}
+                                                        \addcontentsline{toc}{chapter}{Acknowledgements}
+                                                        \input{preface/thesisAck}
 
-} \makeatother
+                                                        } \makeatother
 %%----------------------------------------------------------------------------%%
 %%    Environment for Notation                                                %%
 %%----------------------------------------------------------------------------%%
 
-\makeatletter
-\newcommand{\makenotation}
-{
-\chapter*{Notation}
-\addcontentsline{toc}{chapter}{Notation}
-\section*{Camera Parameters}
-\begin{table}[!h]
-\begin{flushleft}
-    \begin{tabular}{ c l }
-    $f$ & Focal length\\
-    ($u_0,v_0$)& Principal point \\
-    \end{tabular}
-\end{flushleft}
-\end{table}
-\section*{Operators}
-\begin{table}[!h]
-\begin{flushleft}
-    \begin{tabular}{ c l }
-    $a\times b$ & Cross product of vectors $a$ and $b$\\
-    $\textbf{M}^\textbf{T}$ & Transpose of matrix $M$\\
-    $\textbf{M}^{-1}$ & Inverse of matrix $M$\\
-    $\mp$ & Minus or plus\\
-    \end{tabular}
-\end{flushleft}
-\end{table}
-\section*{Named Variables}
-\begin{flushleft}
-    \begin{longtable}{ c l }
-    $\textbf{e}$ & epipole\\
-    $\overline{\textbf{a}}$ & Hypothesis of $a$\\
-    $\omega$ & Imaged absolute conic\\
-    \textbf{K} & Calibration matrix\\
-    \textbf{P} & Projection matrix\\
-    \textbf{R} & Camera orientation\\
-    $\textbf{R}_y$ & Rotation matrix respects to rotation axis\\
-    $\textbf{T}$ & Translation vector\\
-    $M$ & Mirror\\
-    $C$ & Camera\\
-    $\Pi$ & The rotation plane\\
-    $\textbf{l}_h$ & The horizon line or vanishing line of $\Pi$\\
-    $\textbf{m}$ & The point that mirror plane intersects with $\textbf{l}_h$\\
-    $\textbf{v}$ & Vanishing point \\
-    $\alpha$ & The angle between $C$ and $M_1$\\
-    $\beta$ & The angle between $C$ and $M_2$\\
-    $\theta$ & The angle between two mirrors\\
-    $\textbf{l}_s$ & The imaged rotation axis and the vanishing line of Y-axis\\
-    $\textbf{v}_z$ & The vanishing point of Z-axis\\
-    $\textbf{v}_x$ & The vanishing point of X-axis\\
-    $\textbf{v}_y$ & The vanishing point of Y-axis\\
-    \{a,b;c,d\} & Cross ratio of vector $a$, $b$, $c$, $d$\\
-    \end{longtable}
-\end{flushleft}
-%\pagestyle{fancy} \fancyhf{}
-%\fancyhead[LO]{\slshape NOTATION}
-%\fancyhead[RE]{\slshape NOTATION}
-%\fancyfoot[C]{\it \thepage}
-} \makeatother
+                                                        \makeatletter
+                                                        \newcommand{\makenotation}
+                                                        {
+                                                        \chapter*{Notation}
+                                                        \addcontentsline{toc}{chapter}{Notation}
+                                                        % \section*{Camera Parameters}
+                                                        \begin{table}[!h]
+                                                        \begin{flushleft}
+                                                            \begin{tabular}{ c l }
+                                                            $\alpha,\beta,\lambda,...,a,b,c,...$ & Scalars\\
+                                                            \\
+                                                            ${\bf (a,b,c,...)}$ & Vectors \\
+                                                            \\
+                                                            $(A,B,C,...)$ & Matrices \\
+                                                            \\
+                                                            $(\mathcal{A,B,C,...})$ & Tensors \\
+                                                            \\
+                                                            AAM & Active Appearance Mode \\
+                                                            \\
+                                                            HOSVD & Higher-Order Singular Value Decomposition \\
+                                                            \\
+                                                            SVM & Supported Vector Machine \\
+                                                            \\
+                                                            PCA & Principle Component Analysis \\
+                                                            \\
+                                                            CP Decomposition & CANDECOMP/PARAFAC Decomposition \\
+                                                            \\
+                                                            ALS & Alternating Least Square \\
+                                                            \\
+                                                            ASM & Active Shape Model \\
+                                                            
+                                                            \end{tabular}
+                                                        \end{flushleft}
+                                                        \end{table}
+                                                        } \makeatother
 %%----------------------------------------------------------------------------%%
 %%    Environment for CV                                                      %%
 %%----------------------------------------------------------------------------%%
 
-\makeatletter
-\newcommand{\makecv}
-{
-\if@twocolumn
-    \@restonecoltrue\onecolumn
-  \else
-    \@restonecolfalse\newpage
-  \fi
-\begin{center}\textbf{CURRICULUM VITAE}\end{center}
-\addcontentsline{toc}{chapter}{CURRICULUM VITAE}
-Academic qualifications of the thesis author, SONG Yuhao:
-\begin{itemize}
-  \item Received  the degree of Bachelor of Science(Honours) from Beijing Normal University - Hong Kong Baptist University United International College (UIC), September 2009.
-\end{itemize}
-\vspace*{1cm}
-\begin{flushright}
-\@date
-\end{flushright}
-\pagestyle{plain}%
-} \makeatother
+                                                        \makeatletter
+                                                        \newcommand{\makecv}
+                                                        {
+                                                        \if@twocolumn
+                                                            \@restonecoltrue\onecolumn
+                                                          \else
+                                                            \@restonecolfalse\newpage
+                                                          \fi
+                                                        \begin{center}\textbf{CURRICULUM VITAE}\end{center}
+                                                        \addcontentsline{toc}{chapter}{CURRICULUM VITAE}
+                                                        Academic qualifications of the thesis author, SONG Yuhao:
+                                                        \begin{itemize}
+                                                          \item Received  the degree of Bachelor of Science(Honours) from Beijing Normal University - Hong Kong Baptist University United International College (UIC), September 2013.
+                                                        \end{itemize}
+                                                        \vspace*{1cm}
+                                                        \begin{flushright}
+                                                        \@date
+                                                        \end{flushright}
+                                                        \pagestyle{plain}%
+                                                        } \makeatother
 
 
 %%----------------------------------------------------------------------------%%
@@ -413,16 +393,16 @@ Academic qualifications of the thesis author, SONG Yuhao:
   \renewcommand{\footrulewidth}{0pt}
 }
 
-\makedeclaration
-\begin{abstract}
-%\include{preface/thesisAbs}
-\end{abstract}
-\makeAck
+                                                                \makedeclaration
+                                                                \begin{abstract}
+                                                                %\include{preface/thesisAbs}
+                                                                \end{abstract}
+                                                                \makeAck
 %%---------------------%%
 
 %%---------------------%%
 \tableofcontents \listoftables \listoffigures
-\makenotation
+                                                                \makenotation
 %%---------------------%%
 \mainmatter
 %%---------------------%%
@@ -445,6 +425,7 @@ Academic qualifications of the thesis author, SONG Yuhao:
 \include{body/thesisChap3}
 \include{body/thesisChap4}
 \include{body/thesisChap5}
+\include{body/thesisChap6}
 
 
 %%%---------------------%%
@@ -458,7 +439,7 @@ Academic qualifications of the thesis author, SONG Yuhao:
 %%---------------------%%
 \bibliographystyle{splncs03}
 \bibliography{reference/refs}
-\makecv
+                                                                          % \makecv
 \pagestyle{empty}
 %\begin{thebibliography}{999}
 %\addcontentsline{toc}{chapter}{\numberline{}\bibname}

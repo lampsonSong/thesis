@@ -1,0 +1,33 @@
+\iffalse
+\bibliography{reference/refs}
+\fi
+
+\chapter{Conclusion and Future Works}
+\label{chap:conclusions}
+
+In this thesis, we focus on the privacy protection problem for still images and videos
+by de-identifying face regions. To make the de-identification algorithm more robust to
+various images, multi-linear algebra is used to store the data. Hence, the algorithm
+is more practical. 
+
+For the still imags, we propose a novel algorithm of face de-identification based on 
+tensor CP decomposition. The algorithm helps to decompose a face image into multiple 
+dimensions so that the de-identification process could happen only on privacy 
+related information. All the experiments are conducted in the dataset which 
+include multiple images for each person. On the other aspect, the proposed algorithm 
+could process the dataset with multiple factors such as {\it pose, expressions}. 
+Theoretically, more factors could be appended to the algorithm. Futhermore, the rank-$R$
+approximation enlarges the model representation ability for images with new features.
+One shortcoming is that the proposed algorithm requires a complete dataset to construct
+a tensor. The complete dataset is not easy to collect for some cases. Therefore, the future 
+work might be the research on de-identification based on tensors with missing values 
+so that the tensor model could break the limitation of incomplete image data. 
+
+For videos, our proposed algorithm use AAM and tensor HOSVD decomposition to de-identify 
+a video by replacing the original faces with other natural ones. Shown as the experiments, 
+we can keep the identity of de-identified frames in a video invariant and protect its data 
+utility, such as expressions simultaneously. There are shortcomings in the proposed method. 
+The transformation frames between expressions, such as from neutral to surprise, creates 
+unnatural results sometimes. This problem might be solved by apply a weight average process 
+to basis selection. This work could be improved by using Tensor-AAM. More data utilities 
+could be added to the model.
