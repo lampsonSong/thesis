@@ -8,94 +8,168 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Introduction}
+\label{chap:intro}
+
+Suppose in a social experiment, the designers expect to observe people's
+reactions when strangers ask for a help to them. The experiment results are 
+recorded as images and videos. To express the research output to public,
+the recorded data is required to be shown. In this case, the privacy of 
+participants in images or videos must be well protected. Meanwhile, the
+data should still have the ability to describe the expected research output.
+
+We concentrate on protecting privacy by de-identifying face regions in images and
+videos. In this chapter, we describe the current research works on face 
+de-identification and the challenges in section \ref{sec:bg}, then give out
+a summary about our approaches in section \ref{sec:approach}, then list
+the contributions in section \ref{sec:contri}, at last demonstrate the thesis
+outline in section \ref{sec:outline}. 
 
 \section{Background}
+\label{sec:bg}
+With the development of camera technologies, the image and video acquisition
+is becoming easier. Nowadays, mounts of applications are centered around image
+data. Surveillance videos are covering more and more places due to the wide 
+deployment of camera devices. On the other aspect, the advances of computing
+hardwares and computer vision algorithms make it almost effortless to collect, 
+store and analyze massive image and video data. The best face recognition 
+algorithms, like FaceNet \cite{facenet15}, DeepFace \cite{deepface14}, can 
+achive more than $95\%$ accuracy in $LFW$ and Youtube video datasets. It
+means that the current machine recognizer perfoms well and stably regardless
+of the complex background, variant illuminations and unknown face poses. A
+recent research indicates that it is possible to infer personal informations 
+from a single face image \cite{FRandNetwork14}. Therefore, privacy protection
+rises as an important problem during the sharing of image and video data. 
+With the purpose of protecting privacy, images and videos with people visible 
+in the scene are prohibited to be shared in some applications. For example,
+in Google Streetview Service which offers high quality street view images,
+the faces of people in the scene are blurred in the service website currently.
+Another proper example is a surveillance system monitoring patients in nursing 
+home \cite{nursing06}. The identity of patients in the surveillance video has 
+to be removed before sharing. Since the face is one of the most significant 
+biometric features for a person, our research focuses on protecting the privacy 
+in images and videos through face de-identification, which aims at removing
+identity information from faces.
 
-Privacy protection is the most important problem in data sharing, especially for those containing face images. 
+Different challenges exist in face de-identification for images and videos. For 
+images, multiple types of information could be extracted from one face image, such as
+identity, expression, skin color, gender, age, etc. Among of them, only identity
+information is related to privacy. The other types of information are defined
+as data utility of a face image. The key point of face de-identification is to
+keep the balance between privacy protection and data utility preservation. For
+instance, the expression information must be preserved in the images from a medical 
+face database aiming at demonstrate the painful faces \cite{mediDB09}. For videos,
+one more point is required in face de-identification. As a set of continuous
+images, a video is de-identified frame by frame separately. Thus the identity
+of all frames after processing should not change among adjacent frames. 
+This would disturb the audiences during the video playback. To summarize,
+there are two challenges in face de-identification for images and videos:
+\begin{enumerate}
+	\item Keeping the balance between privacy protection and data utility 
+		  preservation for images and videos.
+	\item Keeping the de-identified identity invariant for videos.
+\end{enumerate}
 
-The problem that keeps balance between privacy protection and expression preservation is addressed in this paper. 
-Face de-identification 
+To overcome the challenges, plenty of related research works have been released. 
+The most common method is obfuscating images such as pixelization or blurring 
+\cite{Boyle00,Agrawal09}. Because of the simple implementation, the image 
+obfuscation method is suitable not only to images, but also to videos, such 
+as TV interviews. However, in this approach, the face regions are unreadable 
+to humans after obfuscation. Only replacing the 
+face region with another natural face could preserve the non-privacy related 
+information while removing privacy information. A formal de-identification
+algorithm, $k$-same framework, is then proposed \cite{Newton05,Ralph05,Gross08}. 
+The algorithm takes the average of $k$ closest faces as the de-identified result. 
+As a consequence, the $k$-same framework is only workable to the person specific 
+database, in which each person has just one image. Other formal algorithms, such 
+as face swapping, face synthetic from multiple persons, fail to address the 
+problem of presreving data utilities \cite{swap08,Mosa14}. Except for the
+obfuscation methods, all the formal approaches are not suitable to face
+de-identification in videos. Therefore, we try to extent the processing 
+algorithms to larger databases and videos. 
 
-\par
-Active appearance model (AAM) have been successfully applied to model the space of human face for decades. The AAM could be used in both face recognition and facial expression recognition methods. What is the difference role in the two recognition methods?(2015-5-11)
+\section{Summary of Proposed Approaches}
+\label{sec:approach}
+We use the active appearance model (AAM) \cite{AAM01,Matthews_04} and higher order 
+tensors analysis to de-identify the faces in images and videos. The AAM projects
+a face image into a vector space and represents it with a set of coefficients.
+The model representation helps avoid ghost faces \cite{Gross08}. Considering
+the balance between privacy and data utility, we wish to decompose a face image
+into multiple dimensions so that only the privacy related factors are altered. 
+Therefore, we build up a higher-order tensor and analyze it. 
+Tensor analysis, also known as multilinear algebra, makes the assumption that 
+images are formed as the result of multiple factors. Furthermore, these factors 
+are amenable to linear analysis as each factor is allowed to vary in turn, while 
+the remaining factors are held constant \cite{Vasi02,VasilescuT03}.
 
-\par
-The practical situations are eager to find a way to protect human identity privacy. Mosaic and blur.
+For images, the face de-identification algorithm is proposed based on the tensor 
+CANDECOMP/PARAFAC(CP) decomposition \cite{Lathauwer_rank,Kolda09}. We construct 
+a tensor using multiple types of images, then 
+project a new input one into this tensor. After representing the input image by 
+identity and other types of parameters, we can pick out the identity factor and 
+fuse it with other identity parameters from different persons. At last, we de-identify 
+a face image by reconstructing it with altered identity parameters and its 
+untouched parameters. The advantage of our tensor-based algorithm is that the 
+de-identification process could focus only on privacy related information so that 
+the other $data$ $utilities$ could be well preserved. 
 
-% Social experiment example
-\par
-Imaging a situation in a social experiment, the researchers wish to observe volunteers' direct reactions to some events. As an important channel in communication, facial expression is not tolarable to be ignored for it is the most direct reflection of a person's emotional state. In general, the results of these social experiment are recorded by images or videos. 
+Among kinds of tensor decomposition algorithms, the CP decomposition estimates
+the parameters for each dimension using Alternating Least Square (ALS) method.
+In this way, any face images could be decomposed properly. However, it is not
+suitable to face de-identification in videos. The reason is that the CP
+decomposition is sensitive to initial values and would produce different
+values due to different initial guesses. For videos, AAM is used to represent
+face images and the Higher-order Singular 
+Value Decomposition(HOSVD) \cite{Lathauwer00} is used to decompose one frame 
+into multiple dimensions. One set of them is privacy related, called the 
+$identity$ factors, and the others are non-privacy related factors 
+\cite{Feng12,TPAMI09}. With the basis subtensors in HOSVD, this approach 
+produces the same computation results for every computation. 
+During the video de-identification, one frame in the 
+video is picked out and its identity factors are altered to produce a set of 
+de-identified identity factors. For all the other frames in the video, each 
+of them is reconstructed by only replacing the privacy related factors with 
+the de-identified identity ones. Therefore, the identity of de-identified 
+result could keep constant.
 
-
-% Hospital surveillance example
-\par
-Hospital surveillance videos are expected to contain rich health information including clinical reactions, effects after some treatments which are anaylzed from behaviors or expressions of the patients. Among the information, the identities of patients are so sensitive that it is forbidden to share the surveillance video with other researchers. For this reason, an technique that could protect patients' identity privacy and preserve most useful expression and behavior information simultanously are eager to be found thus making it possible to share the useful surveillance materials without leaking patients' identity information.
-
-% Television example
-\par
-A common privacy protection measure is applying mosaic in interviewee's face region in television interview. 
-However, the mosaic hide both identity and expression information storing in face, lefting the only way for audience to understand content by listening the sound. Mehrabian illustrates that the spoken words of a message contributes only for $7\%$ to the effect of the message as a whole, the voice intonation contributes for $38\%$, while the facial expression of the speaker contributes for $55\%$ to the effect of the spoken message ~\cite{Meh68}. Illustrated as the data above, facial expressions overcomes spoken words obviously in communication. Therefore, it is necessary to invent a new technique that is able to protect face identity information and preserve the facial expressions simultanously. 
-
-% Ross example, the importance of expressions
-\par
-To show how important the expressions are in communication, four frames from a movie are taken. In the top right frame of Figure \ref{expression}, the person called Ross says "my best friend and my sister" with an angry expression after realizing that his sister and best friend are in a relationship with him unknown. After the explanation of top left frame and bottom right frame, he knows his sister and his best friend fell in love with each other and are both serious to the relationship, so he becomes supportive to the lovers. In the bottom left frame, Ross says the same words, "my best friend and my sister", with a happy expression. Even the voice and intonation are not available and the spoken words are totaly the same, the meanings shown from the figures are obviously opposite analyzed from the expressions. 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.9\textwidth]{figure/sisFri} 
-  \caption{An example of communication with different expressions}
-  \label{expression}
-\end{figure}
-
-1、将帮助有自闭症的人群更好的融入社会
-
-       2、帮助销售者预测顾客的消费额和成交率
-
-       3、可以迅速定位那些需要帮助或有学习障碍的学生，并可因此考核教师的素质
-
-       4、用于心理医生判断病人是否明白其指示和病人的真实情感，以便更好的治疗
-
-       5、可以准确的监测出广告投放的精准率
-
-% how to evaluate expression
-Facial Action Coding System (FACS), developed by a Swedish anatomist named Carl-Herman Hjortsjö, is a system that classify the human facial movement by the appearance of the face ~\cite{facs70}. 
-
-
-% The importance of privacy
-\par
-Door lock system through face recognition is a rapidly developed technology in security area. A potential vulnerable attacking method is reconstructing a 3D human face model through a video sequence which is definitely easy to get and then use the 3D printer to get a real face object which could be used to cheat the door lock system. 
-
-Face recognition ATM
-
-
-
-% pose
-Pose estimation of faces are usually addressed assuming the face detection problem has been solved. 3D models and 2D view-based models are usually used. 
-
-
-The essential of face de-identification problem is a face reconstruction process deleting the identity specific factors in the face.  
-The key is how to build the database and train. 
-
-The result of our project would be a synthetic face that would not be recognized by automatic face recognition algorithm but would be figured out by expression recognition algorithm. We are going to build a model with three kinds of parameters: identity, pose, expressions. 
-
-A question: the appearance of a face. The result would be nobody, but it looks natural like the normal people. Why would it looks like a normal person?
-
-Make it clear what data utility is. 
-
-The problem is difficult as the appearance of a face could vary greatly due to the environmental factors like illumination and image noise or resolution. 
-
-\section{Objectives}
-We wish to create a new face model in which all identity factors are extracted independently and then reconstruct the face image with the de-identified identity facotrs. 
-
-definition of identity privacy and data utility
-
-% Contribution
 \section{Contributions}
-Build a tensor-based model
+\label{sec:contri}
+In this thesis, we have done some work on face de-identification in images
+and videos. Our work contributes on three aspects:
+\begin{enumerate}
+	\item We use tensor analysis in face de-identification. By decomposing
+		the face regions into privacy related factors and other non-privacy related 
+		factors, the proposed algorithms could focus on removing privacy 
+		information so that all the other factors are leaved untouched. Therefore, our approach
+		is suitable to the datasets with multiple factors, such as {\it 
+		expressions, poses, illuminations,} etc. Furthermore, each person in
+		the dataset could have more than one image.
+	\item In image processing, our algorithm is workable to the images not 
+		involving in the tensor. The tensor CP decomposition is used to process images. 
+		Since the parameters for each dimension is estimated by initial guess using ALS,
+		the CP decomposition algorithm enlarges the representation ability for face
+		images. We also firstly use	rank-$n$ approximation.
+		The increasement of value $n$ helps the face representation more precise, especially
+		for the images never appear in tensors. 
+	\item We succeed to extend the face de-identification algorithms to videos. The existing
+		methods add obfuscations to the regions related to privacy. Compared to the
+		priveous algorithms, the proposed one has two advantages. 
+		Firstly, our algorithm produces natural de-identified results from videos. 
+		Because the non-privacy related factors are untouched during de-identification, 
+		the results could keep the data utility such as {\it expressions, skin colors,} etc. 
+		in a face. Secondly, our method could de-identify a series of images and keep 
+		the resulting identity invariant throughout the video playback.
+\end{enumerate}
 
-focus on some specific dimension
+\section{Thesis Outline}
+\label{sec:outline}
+In this thesis, we develope a framework to remove privacy related factors and 
+preserve other data utility factors in images and videos. 
+The rest of this thesis is structured as following.
+In Chapter \ref{chap:relatedWorks}, we demonstrate the previous research works
+on face de-identification in images and videos individually. Chapter \ref{chap:foundamental}
+introduces foundamental theories of the proposed algorithm: tensor
+analysis and Active Appearance Model. In Chapter \ref{chap:FDimages} and 
+Chapter \ref{chap:FDvideos}, the face de-identification in images and videos are 
+explained separately. Chapter \ref{chap:conclusions} expresses the summary of our
+works and give out conclusions.
 
-
-% Structure of the whole thesis
-\section{Outline of this thesis}
-\par 
-The rest of this thesis is arranged as follows. 
